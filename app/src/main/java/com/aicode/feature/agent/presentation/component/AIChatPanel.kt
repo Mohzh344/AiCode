@@ -70,6 +70,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -1583,7 +1585,12 @@ fun AIChatPanel(
         }
     }
 
+    // 聊天面板排版方向:「聊天 RTL」开启时整个会话面板按 RTL 排版(消息气泡、输入栏、
+    // 头栏一并镜像),关闭时跟随当前界面语言;与 App 语言设置互不影响。
+    val chatRtl by viewModel.chatRtl.collectAsStateWithLifecycle()
+    val chatLayoutDirection = if (chatRtl) LayoutDirection.Rtl else LayoutDirection.Ltr
     CompositionLocalProvider(
+        LocalLayoutDirection provides chatLayoutDirection,
         LocalMarkdownImageTransformer provides markdownImageTransformer,
         LocalImageViewer provides imageViewerState,
         LocalAttachmentOpener provides attachmentOpener,

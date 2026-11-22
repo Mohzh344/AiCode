@@ -57,6 +57,7 @@ class GeneralSettingsRepository @Inject constructor(
         val SFTP_CHANNEL_LIMIT_KEY = intPreferencesKey("sftp_channel_limit")
         val ENTER_TO_SEND_KEY = booleanPreferencesKey("enter_to_send")
         val AUTO_EXPAND_REASONING_KEY = booleanPreferencesKey("auto_expand_reasoning")
+        val CHAT_RTL_KEY = booleanPreferencesKey("chat_rtl")
         val COMPACTION_THRESHOLD_PERCENT_KEY = intPreferencesKey("compaction_threshold_percent")
         val SENDFILE_MAX_SIZE_MB_KEY = intPreferencesKey("sendfile_max_size_mb")
         val GOAL_MAX_TURNS_KEY = intPreferencesKey("goal_max_turns")
@@ -202,6 +203,19 @@ class GeneralSettingsRepository @Inject constructor(
 
     suspend fun setAutoExpandReasoning(enabled: Boolean) {
         context.generalDataStore.edit { it[AUTO_EXPAND_REASONING_KEY] = enabled }
+    }
+
+    /**
+     * 聊天区是否强制从右到左(RTL)排版;默认关闭。
+     *
+     * 只作用于会话面板(消息列表、输入栏及其弹窗),不影响 App 其它页面,
+     * 也不改变界面语言 —— 英文界面下开启同样生效。
+     */
+    val chatRtlFlow: Flow<Boolean> =
+        context.generalDataStore.data.map { it[CHAT_RTL_KEY] ?: false }
+
+    suspend fun setChatRtl(enabled: Boolean) {
+        context.generalDataStore.edit { it[CHAT_RTL_KEY] = enabled }
     }
 
     /** 自动压缩触发阈值（上下文窗口的百分比）；默认 90，限定 1..100。 */

@@ -1383,6 +1383,10 @@ class AIAgentViewModel @Inject constructor(
     val autoExpandReasoning: StateFlow<Boolean> = generalSettingsRepository.autoExpandReasoningFlow
         .stateIn(viewModelScope, SharingStarted.Eagerly, true)
 
+    /** 「聊天 RTL」偏好:仅会话面板按从右到左排版,与界面语言无关。 */
+    val chatRtl: StateFlow<Boolean> = generalSettingsRepository.chatRtlFlow
+        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+
     /** 当前会话绑定的 providerId/model（null 表示未绑定，回退全局 active provider）。 */
     val currentSessionProviderModel: StateFlow<Pair<String?, String?>> = currentSessionState
         .map { session ->

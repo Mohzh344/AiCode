@@ -405,7 +405,7 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
     private companion object {
         /** 正式包的 applicationId：只有它能应用内覆盖安装 GitHub Releases 里的包。 */
-        const val RELEASE_APPLICATION_ID = "com.aicode"
+        const val RELEASE_APPLICATION_ID = "com.aicode.ar"
         const val CALLS_PAGE_SIZE = 10
         const val STATS_PAGE_SIZE = 5
         /** 背景透明度停止拖动后的落盘延迟。 */
@@ -598,6 +598,9 @@ class SettingsViewModel @Inject constructor(
 
     private val _autoExpandReasoning = MutableStateFlow(true)
     val autoExpandReasoning: StateFlow<Boolean> = _autoExpandReasoning.asStateFlow()
+
+    private val _chatRtl = MutableStateFlow(false)
+    val chatRtl: StateFlow<Boolean> = _chatRtl.asStateFlow()
 
     private val _compactionThresholdPercent = MutableStateFlow(85)
     val compactionThresholdPercent: StateFlow<Int> = _compactionThresholdPercent.asStateFlow()
@@ -1034,6 +1037,12 @@ class SettingsViewModel @Inject constructor(
             launch {
                 generalSettingsRepository.autoExpandReasoningFlow.collectLatest {
                     _autoExpandReasoning.value = it
+                }
+            }
+
+            launch {
+                generalSettingsRepository.chatRtlFlow.collectLatest {
+                    _chatRtl.value = it
                 }
             }
 
@@ -2559,6 +2568,13 @@ class SettingsViewModel @Inject constructor(
     fun setAutoExpandReasoning(enabled: Boolean) {
         viewModelScope.launch {
             generalSettingsRepository.setAutoExpandReasoning(enabled)
+        }
+    }
+
+    /** 聊天区是否强制 RTL 排版(仅会话面板,不改界面语言)。 */
+    fun setChatRtl(enabled: Boolean) {
+        viewModelScope.launch {
+            generalSettingsRepository.setChatRtl(enabled)
         }
     }
 

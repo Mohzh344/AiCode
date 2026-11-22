@@ -291,6 +291,7 @@ fun SettingsScreen(
     val sftpChannelLimit by viewModel.sftpChannelLimit.collectAsStateWithLifecycle()
     val enterToSend by viewModel.enterToSend.collectAsStateWithLifecycle()
     val autoExpandReasoning by viewModel.autoExpandReasoning.collectAsStateWithLifecycle()
+    val chatRtl by viewModel.chatRtl.collectAsStateWithLifecycle()
     val compactionThresholdPercent by viewModel.compactionThresholdPercent.collectAsStateWithLifecycle()
     val sendFileMaxSizeMb by viewModel.sendFileMaxSizeMb.collectAsStateWithLifecycle()
     val goalMaxTurns by viewModel.goalMaxTurns.collectAsStateWithLifecycle()
@@ -1365,6 +1366,8 @@ fun SettingsScreen(
                     onToggleEnterToSend = { viewModel.setEnterToSend(it) },
                     autoExpandReasoning = autoExpandReasoning,
                     onToggleAutoExpandReasoning = { viewModel.setAutoExpandReasoning(it) },
+                    chatRtl = chatRtl,
+                    onToggleChatRtl = { viewModel.setChatRtl(it) },
                     compactionThresholdPercent = compactionThresholdPercent,
                     onSetCompactionThresholdPercent = { viewModel.setCompactionThresholdPercent(it) },
                     sendFileMaxSizeMb = sendFileMaxSizeMb,

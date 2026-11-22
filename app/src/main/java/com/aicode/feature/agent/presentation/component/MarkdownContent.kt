@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -34,6 +36,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.aicode.R
@@ -380,21 +383,24 @@ private fun SafeMarkdownHighlightedCode(
         }.also { CodeHighlightCache.put(code, language, isDark, it) }
     }
 
-    MarkdownCodeBackground(
-        color = LocalMarkdownColors.current.codeBackground,
-        shape = RoundedCornerShape(LocalMarkdownDimens.current.codeBackgroundCornerSize),
-        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
-        showHeader = showHeader,
-        language = language,
-        code = code,
-    ) {
-        MarkdownBasicText(
-            text = highlighted,
-            style = style,
-            modifier = Modifier
-                .horizontalScroll(rememberScrollState())
-                .padding(LocalMarkdownPadding.current.codeBlock),
-        )
+    // 代码块永远按 LTR 排版:聊天区开 RTL 时代码仍保持左对齐、按从左到右阅读。
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        MarkdownCodeBackground(
+            color = LocalMarkdownColors.current.codeBackground,
+            shape = RoundedCornerShape(LocalMarkdownDimens.current.codeBackgroundCornerSize),
+            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+            showHeader = showHeader,
+            language = language,
+            code = code,
+        ) {
+            MarkdownBasicText(
+                text = highlighted,
+                style = style,
+                modifier = Modifier
+                    .horizontalScroll(rememberScrollState())
+                    .padding(LocalMarkdownPadding.current.codeBlock),
+            )
+        }
     }
 }
 

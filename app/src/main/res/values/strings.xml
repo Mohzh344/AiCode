@@ -92,6 +92,8 @@
     <string name="settings_general_reply">回复</string>
     <string name="settings_auto_expand_reasoning">思考自动展开</string>
     <string name="settings_auto_expand_reasoning_desc">思考过程默认展开显示，关闭后保持收起、点击查看</string>
+    <string name="settings_chat_rtl">聊天区 RTL 排版</string>
+    <string name="settings_chat_rtl_desc">仅聊天对话区从右到左排版（消息、输入框一并镜像）；关闭时跟随界面语言，不影响其它页面</string>
     <string name="settings_general_network">网络</string>
     <string name="settings_first_byte_timeout">首字节超时</string>
     <string name="settings_first_byte_timeout_desc">等待首个响应块的最长时间</string>

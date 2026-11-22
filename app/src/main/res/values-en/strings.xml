@@ -92,6 +92,8 @@
     <string name="settings_general_reply">Reply</string>
     <string name="settings_auto_expand_reasoning">Auto-expand thinking</string>
     <string name="settings_auto_expand_reasoning_desc">Thinking starts expanded; when off it stays collapsed until tapped</string>
+    <string name="settings_chat_rtl">Right-to-left chat layout</string>
+    <string name="settings_chat_rtl_desc">Mirrors only the chat area (messages and input bar) right-to-left; when off the chat follows the app language. Other screens are unaffected</string>
     <string name="settings_general_network">Network</string>
     <string name="settings_first_byte_timeout">First byte timeout</string>
     <string name="settings_first_byte_timeout_desc">Max wait for the first response chunk</string>

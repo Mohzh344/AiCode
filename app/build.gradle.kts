@@ -176,6 +176,9 @@ android {
             applicationIdSuffix = ".debug"
         }
         release {
+            // 本 fork 独立发行:包名带 .ar 后缀(com.aicode.ar),与上游正式包同机共存、
+            // 互不覆盖;签名用本仓库自己的 keystore,更新检查也只认本仓库的 Release。
+            applicationIdSuffix = ".ar"
             isMinifyEnabled = true
             isShrinkResources = true
             if (keystorePropertiesFile.exists()) {

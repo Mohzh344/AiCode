@@ -118,7 +118,7 @@ class StarPromptCoordinator internal constructor(
     )
 
     companion object {
-        const val GITHUB_REPO_URL = "https://github.com/jieapi/aicode"
+        const val GITHUB_REPO_URL = "https://github.com/Mohzh344/AiCode"
         const val DEFAULT_FOREGROUND_SETTLE_MS = 30_000L
         const val DEFAULT_PERSIST_INTERVAL_MS = 30_000L
         const val DEFAULT_IDLE_DEBOUNCE_MS = 1_500L

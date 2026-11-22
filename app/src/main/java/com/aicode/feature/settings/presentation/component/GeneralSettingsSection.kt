@@ -62,6 +62,8 @@ internal fun GeneralSettingsSection(
     onToggleEnterToSend: (Boolean) -> Unit,
     autoExpandReasoning: Boolean,
     onToggleAutoExpandReasoning: (Boolean) -> Unit,
+    chatRtl: Boolean,
+    onToggleChatRtl: (Boolean) -> Unit,
     compactionThresholdPercent: Int,
     onSetCompactionThresholdPercent: (Int) -> Unit,
     sendFileMaxSizeMb: Int,
@@ -158,6 +160,18 @@ internal fun GeneralSettingsSection(
                     AppSwitch(
                         checked = autoExpandReasoning,
                         onCheckedChange = onToggleAutoExpandReasoning
+                    )
+                }
+            )
+            SettingsDivider()
+            SettingsRow(
+                icon = null,
+                title = stringResource(R.string.settings_chat_rtl),
+                subtitle = stringResource(R.string.settings_chat_rtl_desc),
+                trailing = {
+                    AppSwitch(
+                        checked = chatRtl,
+                        onCheckedChange = onToggleChatRtl
                     )
                 }
             )
